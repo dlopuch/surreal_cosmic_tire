@@ -73,3 +73,32 @@ $ curl localhost:3000/api/file/783a387d-66dc-4f46-aa80-13da8be3e514
 $ curl localhost:3000/api/file/783a387d-66dc-4f46-aa80-13da8be3e514/data
 (file contents)
 ```
+
+# Additional Questions
+
+"How do you typically manage dependencies for a project?"
+
+In Node/javascript, npm is the go-to package manager.  Even with front-end work, with module bundlers like webpack,
+npm is still the easiest way to coordinate versions across teams.  Even so, package managers do have their limits.
+With semver fuzzy matching, it is possible for different developers to get different versions (and resulting bugs).
+When those start happening, you can look at shrinkwrap options or even checking in your node_modules directory.
+
+
+"Provide a top 3 of your favorite resources (blogs, books, people, etc...) that you
+use to improve as an engineer. Please tell why you like that particular resource."
+
+hackernews tends to be the go-to resource, but there's a high noise-to-signal ratio.  It's good to be aware of new
+developments, but it's easy to get carried away by the hype.  It's when a tool starts appearing consistently that
+you start to pay attention to it.  A good curated list of writings is the great SoftwareLeadWeekly newsletter -- 
+geared towards technical developers, but it's a good curation of soft-skill write-ups.  Finally, finding some 
+thought-leaders and following them on twitter can occasionally lead to good insights (I follow many data visualization
+developers, for example).
+ 
+
+How would you test a piece of code that required access to a remote database through a network connection?
+There are two main levels of testing this:
+
+- unit tests: Don't talk to a database, mock out the responses and focus on the behavior
+- integration testing: have a CI environment that spins up a database in a known state, spins up your application,
+  and can run recorded test scripts against it.  This can be a simple script run with a test-runner, or this can be
+  as complicated as Selenium.
