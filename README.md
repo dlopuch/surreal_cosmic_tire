@@ -95,7 +95,8 @@ thought-leaders and following them on twitter can occasionally lead to good insi
 developers, for example).
  
 
-How would you test a piece of code that required access to a remote database through a network connection?
+"How would you test a piece of code that required access to a remote database through a network connection?"
+
 There are two main levels of testing this:
 
 - unit tests: Don't talk to a database, mock out the responses and focus on the behavior
