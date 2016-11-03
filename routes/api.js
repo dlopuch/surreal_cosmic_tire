@@ -194,7 +194,7 @@ router.put('/file/:fileId', fileUploadMulter.single('passport'), function(req, r
       }
 
       // TODO: Could perform mimetype whitelist with req.file.mimetype, but that also can be easily spoofed
-      
+
       return callback(null, fileMeta);
     },
     function persistFile(fileMeta, callback) {
