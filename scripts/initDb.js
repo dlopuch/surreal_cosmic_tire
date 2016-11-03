@@ -12,8 +12,8 @@ db.dbReady.then((db) => {
           guid TEXT PRIMARY KEY NOT NULL,
           created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
           uploaded_at DATE DEFAULT null,
-          is_file_uploaded BOOLEAN DEFAULT false,
-          is_meta_expired BOOLEAN DEFAULT false,
+          is_file_uploaded BOOLEAN DEFAULT 0,
+          is_meta_expired BOOLEAN DEFAULT 0,
           description TEXT NOT NULL,
           extension TEXT NOT NULL,
           tags TEXT

@@ -74,7 +74,16 @@ router.post('/file', function(req, res, next) {
         return next(error);
       }
 
-      res.status(200).json({ status: 'ok', fileId: $guid });
+      res.status(200).json({
+        status: 'ok',
+        fileId: $guid,
+
+        // API's could be self-describing (HATEOS).  Lets provide some info where more data could be retrieved:
+        _links: {
+          self: `/api/file/${$guid}`,
+          data: `/api/file/${$guid}/data`
+        }
+      });
     }
   );
 });
@@ -89,8 +98,8 @@ router.get('/file/:fileId', function(req, res, next) {
       return next(error);
     }
 
-    if (!results) {
-      logger.log(`No results found for fileId ${req.params.fileId}`);
+    if (!results || results.is_meta_expired) {
+      logger.log(`No results found for fileId ${req.params.fileId} or expired (${results.is_meta_expired})`);
       return res.status(404).send();
     }
 
@@ -100,6 +109,11 @@ router.get('/file/:fileId', function(req, res, next) {
       description: results.description,
       extension: results.extension,
       tags: results.tags ? results.tags.split(',') : null,
+
+      // API's could be self-describing (HATEOS).  Lets provide some info where more data could be retrieved:
+      _links: {
+        data: `/api/file/${results.guid}/data`
+      }
     });
   });
 });
@@ -213,10 +227,10 @@ router.put('/file/:fileId', fileUploadMulter.single('passport'), function(req, r
           `UPDATE file_meta SET is_file_uploaded = 1, uploaded_at = datetime() WHERE guid = ?`, fileMeta.guid, cb
         ),
         (cb) => db().run('COMMIT', cb)
-        ], (error) => callback(error)
+        ], (error) => callback(error, fileMeta)
       );
     }
-  ], function(error) {
+  ], function(error, fileMeta) {
     if (error) {
       if (!error.status) {
         return next(error);
@@ -226,6 +240,14 @@ router.put('/file/:fileId', fileUploadMulter.single('passport'), function(req, r
       return;
     }
 
-    res.status(200).json({ fileId: req.params.fileId });
+    res.status(200).json({
+      status: 'ok',
+
+      // API's could be self-describing (HATEOS).  Lets provide some info where more data could be retrieved:
+      _links: {
+        self: `/api/file/${fileMeta.guid}`,
+        data: `/api/file/${fileMeta.guid}/data`
+      }
+    });
   });
 });
