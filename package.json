@@ -1,9 +1,10 @@
 {
-  "name": "backend",
-  "version": "0.0.0",
+  "name": "surreal_cosmic_tire",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "init-db": "rm sqlite.db; node scripts/initDb.js"
   },
   "dependencies": {
     "async": "^2.1.2",

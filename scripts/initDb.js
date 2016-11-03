@@ -34,7 +34,7 @@ db.dbReady.then((db) => {
         return;
       }
 
-      console.log('success');
+      console.log('\n------------\nSuccessfully initialed database!');
       db.close();
     });
   });
