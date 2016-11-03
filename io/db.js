@@ -18,3 +18,9 @@ const dbReady = new Promise((resolve, reject) => {
 exports.dbReady = dbReady;
 
 exports.db = () => db;
+// exports.db = () => ({
+//   run: function() {
+//     console.log('RUNNING DB QUERY', arguments[0], arguments[1]);
+//     db.run.apply(db, arguments);
+//   }
+// });
